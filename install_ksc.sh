@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-SERVER_IP="IP_PUBLICSERVER"
+SERVER_IP="IP_PUBLIC_SERVER"
 
 KSC_DEB="ksc64_15.4.0-8873_amd64.deb"
 WEB_DEB="ksc-web-console-15.4.1021.x86_64.deb"
@@ -13,16 +13,14 @@ if [[ "${EUID}" -ne 0 ]]; then
   exit 1
 fi
 
-echo "== Installing prerequisites (wget + MariaDB client + basic tools) =="
+echo "== Installing prerequisites (download tools + MariaDB client) =="
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
 
-# Tools for download + script runtime deps
 apt-get install -y \
   wget ca-certificates curl gnupg \
-  systemd \
-  awk sed grep tee \
-  mariadb-client
+  gawk sed grep coreutils \
+  systemd mariadb-client
 
 echo "== Downloading required files =="
 wget -O "${KSC_DEB}"  "http://${SERVER_IP}/${KSC_DEB}"
