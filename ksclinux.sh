@@ -185,9 +185,10 @@ install_ksc() {
 install_web() {
   section "Install Web Console"
   cp -f "$WEB_JSON" /etc/ksc-web-console-setup.json
-  apt-get install -y "$WEB_DEB"
+  apt-get install -y "./$WEB_DEB"
   systemctl restart kladminserver_srv.service klwebsrv_srv.service
 }
+
 
 # -------------------------------
 # Finish
